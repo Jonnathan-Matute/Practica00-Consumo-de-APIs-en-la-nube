@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Busqueda de Peliculas</title>
+
+    <script type="text/javascript" src="funciones.js"></script>
+</head>
+
+<body>
+    <input type="text" value="" id="titulo"><br><br>
+    <input type="button" value="Mostrar Datos" id="md" onclick="BuscarPeliculas()"><br><br>
+
+    <table>
+        <tr>
+            <td>
+                <table id="mia" class="dat">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>TITULO</th>
+                            <th>AÑO</th>
+                            <th>TIPO</th>
+                            <th>POSTER</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="infromacion">
+
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div id="detalles">
+
+                </div>
+            </td>
+        </tr>
+
+    </table>
+</body>
+
+</html>
