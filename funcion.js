@@ -1,35 +1,34 @@
-function buscarPelicuaPorTitulo(){
-    var titulo = document.getElementById("titulo").value;
-    var detalles = "";
-    if (titulo == "") {
-        detalles = "<tr>" +
-        "<td colspan='5'> Sin información...!</td> " +
-        "</tr>";
-        document.getElementById("informacion").innerHTML = detalles;
-    } else {
-        if(window.XMLHttpRequest){
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange = function(){
-            if (this.readyState == 4 && this.status == 200) {
-                var data = JSON.parse(this.responseText)
+$(document).ready(() => {
+    $('#buscador').on('submit', (e) => {
+        var buscarPorTitulo = $('#buscarPorTitulo').val();
+        porTitulo(buscarPorTitulo);
+        e.preventDefault();
+    });
+});
 
-                data.Search.forEach(movie => {
-                    detalles += "<tr>" +
-                    "<td><a href='#' onclick=\"buscarPeliculaPorId('" + movie.imdbID + "')\"> Mas de"
-                    "<td>" + movie.Title + "</td>" +
-                    "<td>" + movie.Year + "</td>" +
-                    "<td>" + movie.Type + "</td>" +
-                    "<td><img src=" + movie.Poster + "></td>" +
-                    "</tr>";
-                });
-                document.getElementById("informacion").innerHTML = detalles;
-            }
-        };
-        
-        xmlhttp.open("GET","http://www.pmdbapi.com/?i=tt3896198&apikey=2f3031c=" + titulo + "&plot=full", true);
-        xmlhttp.send();
-    }
+function porTitulo(buscarPorTitulo) {
+    axios.get('https://www.omdbapi.com?s=' + buscarPorTitulo + "&apikey=2f3031c")
+        .then((respuesta) => {
+            console.log(respuesta);
+            var peliculas = respuesta.data.Search;
+            var output = '';
+            $.each(peliculas, (index, movie) => {
+                output += `
+                <table>
+                    <tr>
+                        <th><strong>Póster:</strong><br><img src="${movie.Poster}" width="100" height="100"><br></th>
+                        <th><br><strong>Titulo:</strong><br>${movie.Title}</th>
+                        <th><br><strong>Publicación:</strong><br> ${movie.Released}</th>
+                        <th><br><strong>Género:</strong> <br>${movie.Genre}</th>
+                        <th><br><strong>Código:</strong> <br>${movie.imdbID}</th>
+                        <th><br><br><a class="button" onclick="porId('${movie.imdbID}')" href="#">Más información</a></th>                       
+                    </tr>     
+                </table>
+                `;
+            });
+            $('#peliculas').html(output);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 }
