@@ -32,3 +32,38 @@ function porTitulo(buscarPorTitulo) {
             console.log(err);
         });
 }
+
+function porId(id) {
+    sessionStorage.setItem('peliculaId', id);
+    window.location = 'pelicula.html';
+    return false;
+}
+
+function infPelicula() {
+    var peliculaId = sessionStorage.getItem('peliculaId');
+    axios.get('http://www.omdbapi.com?i=' + peliculaId + "&apikey=2f3031c")
+        .then((respuesta) => {
+            console.log(respuesta);
+            var movie = respuesta.data;
+            var output = `
+            <table>
+                    <tr>
+                        <th scope="col"><br><br><img src="${movie.Poster}" width="150" height="150"><br><strong>Titulo:</strong><br>${movie.Title}</th>
+                        <th scope="col"><strong>Género:</strong> ${movie.Genre}<br>
+                        <strong>Publicación:</strong> ${movie.Released}<br>
+                        <strong>Clasificación:</strong> ${movie.Rated}<br>
+                        <strong>Calificación IMDB:</strong> ${movie.imdbRating}<br>
+                        <strong>Director:</strong> ${movie.Director}<br>
+                        <strong>Escritor:</strong> ${movie.Writer}<br>
+                        <strong>Actores:</strong> ${movie.Actors}<br>
+                        <strong>Código:</strong> ${movie.imdbID}<br>
+                        <strong>Introducción:</strong> ${movie.Plot}</th>
+                    </tr>
+            </table>
+        `;
+            $('#inf').html(output);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+}
