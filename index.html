@@ -1,45 +1,94 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 
 <head>
     <title>Busqueda de Peliculas</title>
-
-    <script type="text/javascript" src="funciones.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
 </head>
 
-<body>
-    <input type="text" value="" id="titulo"><br><br>
-    <input type="button" value="Mostrar Datos" id="md" onclick="BuscarPeliculas()"><br><br>
+<body class="landing is-preload">
+    <div id="page-wrapper">
 
-    <table>
-        <tr>
-            <td>
-                <table id="mia" class="dat">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>TITULO</th>
-                            <th>AÑO</th>
-                            <th>TIPO</th>
-                            <th>POSTER</th>
-                        </tr>
-                    </thead>
+        <!-- Header -->
+        <header id="header" class="alt">
+            <h1><a href="index.html">Plataformas</a> Web</h1>
+            <nav id="nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                </ul>
+            </nav>
+        </header>
 
-                    <tbody id="infromacion">
+        <!-- Banner -->
+        <section id="banner">
+            <h2>Practica00 – Consumo de APIs en la nube</h2>
+            <p>Servicios web consumidos de la API de OMDb.</p>
+        </section>
 
-                    </tbody>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div id="detalles">
 
+        <!-- Main -->
+        <section id="main" class="container">
+            <section class="box special">
+                <header class="major">
+                    <h2>Aplicacion para la busqueda
+                        <br />
+                        de peliculas por nombre</h2>
+                    <p>Ingrese el nombre de la pelicula que desea buscar</p>
+                </header>
+                <form id="buscador">
+                    <input type="text" class="form-control" id="buscarPorTitulo"
+                        placeholder="Ingresar nombre de la pelicula">
+                </form>
+
+                <div class="container">
+                    <div id="peliculas" class="row"></div>
                 </div>
-            </td>
-        </tr>
 
-    </table>
+            </section>
+
+            <section class="box special">
+                <header class="major">
+                    <h2>Aplicacion para la busqueda
+                        <br />
+                        de peliculas por ID</h2>
+                    <p>Ingrese el ID de la pelicula que desea buscar</p>
+                </header>
+
+                <form id="buscadorid">
+                    <input type="text" class="form-control" id="buscID" placeholder="Ingrese el Id de la pelicula">
+                </form>
+
+                <div class="container">
+                    <div id="peliculasid" class="well"></div>
+                </div>
+
+            </section>
+        </section>
+
+
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous">
+            </script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="funciones.js"></script>
+        <script>
+            infPelicula();
+        </script>
+
+        <footer id="footer">
+            <ul class="icons">
+
+                <li><a class="button" href="https://www.facebook.com/tute.14.11.15">Facebook</a></li>
+                <li><a class="button" href="https://github.com/Jonnathan-Matute/Practica00-Consumo-de-APIs-en-la-nube">Github</a></li>
+            </ul>
+            <ul class="copyright">
+                <li>&copy; All rights reserved.</li>
+                <li>Application: <a href="index.html">Movie Search</a></li>
+            </ul>
+        </footer>
+    </div>
 </body>
 
 </html>
