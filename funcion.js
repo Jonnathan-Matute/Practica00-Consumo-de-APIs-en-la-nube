@@ -35,7 +35,7 @@ function porTitulo(buscarPorTitulo) {
 
 function porId(id) {
     sessionStorage.setItem('peliculaId', id);
-    window.location = 'pelicula.html';
+    window.location = 'infPelicula.html';
     return false;
 }
 
@@ -62,6 +62,42 @@ function infPelicula() {
             </table>
         `;
             $('#inf').html(output);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+}
+
+$(document).ready(() => {
+    $('#buscadorid').on('submit', (e) => {
+        var buscID = $('#buscID').val();
+        buscarPorId(buscID);
+        e.preventDefault();
+    });
+});
+
+function buscarPorId(id) {
+    axios.get('https://www.omdbapi.com?i=' + id + "&apikey=2f3031c")
+        .then((respuesta) => {
+            console.log(respuesta);
+            var movieID = respuesta.data;
+            var output = `
+                <table>
+                    <tr>
+                        <th><br><br><img src="${movieID.Poster}" width="150" height="150"><br><strong>Titulo:</strong><br>${movieID.Title}</th>
+                        <th><strong>Género:</strong> ${movieID.Genre}<br>
+                        <strong>Publicación:</strong> ${movieID.Released}<br>
+                        <strong>Clasificación:</strong> ${movieID.Rated}<br>
+                        <strong>Calificación IMDB:</strong> ${movieID.imdbRating}<br>
+                        <strong>Director:</strong> ${movieID.Director}<br>
+                        <strong>Escritor:</strong> ${movieID.Writer}<br>
+                        <strong>Actores:</strong> ${movieID.Actors}<br>
+                        <strong>Código:</strong> ${movieID.imdbID}<br>
+                        <strong>Introducción:</strong> ${movieID.Plot}</th>
+                    </tr>
+                </table>
+        `;
+            $('#peliculasid').html(output);
         })
         .catch((err) => {
             console.log(err);
